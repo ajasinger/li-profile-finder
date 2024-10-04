@@ -22,18 +22,24 @@ export default function Form() {
     //onChange
     //onSubmit
 
-    const onSubmit = async(e) => {
-
+    const handleFormSubmit = async(e) => {
+        console.log('submitted');
     }
 
     return(
         <div>
-            <form>
-                <label></label>
-                <div>
+            <form onSubmit={handleFormSubmit} className="flex flex-col">
+                <label htmlFor="name">Enter a Linkedin URL:</label>
+                <div className="flex">
                     <p>https://www.linkedin.com/in/</p>
-                    <input />
+                    <input 
+                        id="name"
+                        name="name"
+                        type="text"
+                        className="border-4 border-color:black rounded"
+                    />
                 </div>
+                <button type="submit">Generate PDF</button>
             </form>
 
         </div>
