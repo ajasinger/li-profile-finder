@@ -23,23 +23,50 @@ export default function Form() {
     //onSubmit
 
     const handleFormSubmit = async(e) => {
-        console.log('submitted');
+        e.preventDefault();
+        
+        const res = await fetch('/api/websiteData', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name
+            })
+        });
+
+        if(!res.ok) {
+            setError(true);
+            console.log('fetch error in handleFormSubmit')
+        }
+
+        const data = await res.json();
     }
 
     return(
         <div>
-            <form onSubmit={handleFormSubmit} className="flex flex-col">
+            <form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
                 <label htmlFor="name">Enter a Linkedin URL:</label>
-                <div className="flex">
+                <div className="flex items-center">
                     <p>https://www.linkedin.com/in/</p>
                     <input 
                         id="name"
                         name="name"
                         type="text"
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        autoComplete="name"
+                        placeholder="janedoe"
                         className="border-4 border-color:black rounded"
                     />
                 </div>
-                <button type="submit">Generate PDF</button>
+                <button 
+                    type="submit" 
+                    disabled={loading}
+                    className="p-6 bg-blue text-black"
+                >
+                    Generate PDF
+                </button>
             </form>
 
         </div>
