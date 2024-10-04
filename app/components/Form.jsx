@@ -63,7 +63,7 @@ export default function Form() {
                 <button 
                     type="submit" 
                     disabled={loading}
-                    className="p-6 bg-blue text-black"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                     Generate PDF
                 </button>
