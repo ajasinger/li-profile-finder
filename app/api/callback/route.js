@@ -37,13 +37,19 @@ export async function GET(request) {
         });
     
         //check if cookie exists 
-        const hasCookie = cookieStore.has('access_token');
+        const hasCookie = cookie.has('access_token');
         console.log('hasCookie', hasCookie)
 
-        return NextResponse.json({ message: 'Access token set' }, { status: 200 });
+        if(hasCookie) {
+            return NextResponse.redirect(`${process.env.SITE_URL}`);
+        } else {
+            //creat new error url to add error handline
+            return NextResponse.redirect(`${process.env.SITE_URL}`);
+        }
   
     } catch (error) {
-        console.error('Error setting cookie with access token', error);
-        return NextResponse.json({ error: 'Error setting cookie with access token' }, { status: 500 });
+        console.error('Error getting access token', error);
+        //creat new error url to add error handline
+        return NextResponse.redirect(`${process.env.SITE_URL}`);
     }
 }
