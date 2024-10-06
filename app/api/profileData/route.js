@@ -3,22 +3,17 @@ import puppeteer from 'puppeteer';
 import { cookies } from 'next/headers';
 
 export async function GET(request) {
-    console.log('starting POST')
 
     try{
-        console.log('try started');
 
         const cookie = cookies();
         const accessToken = cookie.get('access_token');
+        const url = 'https://api.linkedin.com/v2/userinfo'
 
-        const url = 'https://api.linkedin.com/v2/me';;
-
-    try {
         const response = await fetch(url, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken.value}`,
             },
         });
 
@@ -29,11 +24,6 @@ export async function GET(request) {
 
         const userData = await response.json();
         console.log(userData, userData)
-        return NextResponse.json(userData);
-    } catch (error) {
-        console.error('Error fetching LinkedIn user:', error);
-        return NextResponse.json({ error: 'Failed to fetch LinkedIn user' }, { status: 500 });
-    }
 
         // const res = await fetch('https://www.linkedin.com/in/ceonyc');
         // const html = await res.text();
@@ -67,10 +57,11 @@ export async function GET(request) {
         // await browser.close();
 
     }catch(error) {
-        console.log(error)
+        console.error('Error fetching user data', error);
+        return NextResponse.json({ error: 'Error fetching user data' }, { status: 500 });
     }
 
-    return NextResponse.json("");
+    return NextResponse.json(userData);
 }
 
 
