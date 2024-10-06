@@ -26,8 +26,7 @@ export async function GET(request) {
         });
     
         const tokenData = await tokenRes.json();
-        console.log('token_data', tokenData)
-        const accessToken = tokenData;
+        const accessToken = tokenData.access_token;
 
         //set cookie with access token
         const cookie = cookies();
@@ -35,18 +34,18 @@ export async function GET(request) {
             path: '/',
             httpOnly: true,
         });
-    
-        //check if cookie exists 
+
+        //check if cookie was created
         const hasCookie = cookie.has('access_token');
         console.log('hasCookie', hasCookie)
 
         if(hasCookie) {
             return NextResponse.redirect(`${process.env.SITE_URL}`);
         } else {
-            //creat new error url to add error handline
+            //create new error url to add error handline
             return NextResponse.redirect(`${process.env.SITE_URL}`);
         }
-  
+        
     } catch (error) {
         console.error('Error getting access token', error);
         //creat new error url to add error handline
