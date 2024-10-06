@@ -58,12 +58,14 @@ export default function Form() {
                         autoComplete="name"
                         placeholder="janedoe"
                         className="border-4 border-color:black rounded"
+                        //class="relative flex flex-col flex-nowrap items-center gap-4 text-gray-dark tablet:h-[62px] tablet:flex-row tablet:gap-0 tablet:rounded-[64px] tablet:bg-white tablet:py-[8px] tablet:pl-[24px] tablet:pr-[4px]"
                     />
                 </div>
                 <button 
                     type="submit" 
                     disabled={loading}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    // className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="whitespace-nowrap rounded-full cursor-default hover:cursor-pointer disabled:cursor-default flex items-center justify-center font-semibold  text-coal bg-primary hover:bg-primary-light active:bg-primary-dark disabled:bg-gray-extra-light disabled:text-gray px-12 h-14 min-h-14 text-[21px] flex-row fade-in-animation delay-2000 w-fit opacity-0"
                 >
                     Generate PDF
                 </button>
