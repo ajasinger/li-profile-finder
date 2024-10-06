@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
+import { cookies } from 'next/headers'
 
 export async function GET(request) {
+
+    //delete existing 'access_token' cookie
+    cookies().delete('access_token');
     
     try{
         const baseUrl = 'https://www.linkedin.com/oauth/v2/authorization';
@@ -11,7 +15,7 @@ export async function GET(request) {
             response_type: 'code',
             client_id: process.env.LINKEDIN_CLIENT_ID,
             redirect_uri: process.env.LINKEDIN_REDIRECT_URI,
-            scope: 'email profile',
+            scope: 'openid email profile',
             state: generateState,
         });
 
