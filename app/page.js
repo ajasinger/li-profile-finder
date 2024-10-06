@@ -4,7 +4,6 @@ import { cookies } from 'next/headers';
 
 export default function Home() {
 
-
 //check if user has access token
 const cookie = cookies();
 const hasCookie = cookie.has('access_token');

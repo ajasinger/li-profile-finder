@@ -25,7 +25,7 @@ export default function Form() {
     const handleFormSubmit = async(e) => {
         e.preventDefault();
         
-        const res = await fetch('/api/websiteData', {
+        const res = await fetch('/api/profileData', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
