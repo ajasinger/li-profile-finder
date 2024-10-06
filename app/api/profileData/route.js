@@ -2,19 +2,44 @@ import { NextResponse } from 'next/server';
 import puppeteer from 'puppeteer';
 import { cookies } from 'next/headers';
 
-export async function POST(request) {
-    const {name} = await request.json();
+export async function GET(request) {
+    console.log('starting POST')
 
     try{
+        console.log('try started');
 
-        // const cookie = cookies()
-        // const accessToken = cookie.get('access_token')
+        const cookie = cookies();
+        const accessToken = cookie.get('access_token');
 
-        const res = await fetch('https://www.linkedin.com/in/ceonyc');
-        const html = await res.text();
+        const url = 'https://api.linkedin.com/v2/me';;
 
-        console.log(html);
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+            },
+        });
 
+        if (!response.ok) {
+            const errorData = await response.json();
+            return NextResponse.json({ error: errorData }, { status: response.status });
+        }
+
+        const userData = await response.json();
+        console.log(userData, userData)
+        return NextResponse.json(userData);
+    } catch (error) {
+        console.error('Error fetching LinkedIn user:', error);
+        return NextResponse.json({ error: 'Failed to fetch LinkedIn user' }, { status: 500 });
+    }
+
+        // const res = await fetch('https://www.linkedin.com/in/ceonyc');
+        // const html = await res.text();
+
+        // console.log(html);
+        // console.log('try ended')
 
         // Launch the browser, open a new blank page, navigate the page to a URL & wait for page to load
         // const browser = await puppeteer.launch({ headless: false });

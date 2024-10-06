@@ -18,6 +18,14 @@ export default function Form() {
 // - Ensure the PDF contains a header and/or footer that repeats on every page
 // - Include the person's profile picture somewhere in the PDF
 
+
+// - Deliver a Github repository, ready for npm i && npm start
+// - Use any web scraper you'd like, (or even the LinkedIn API if you manage to get access)
+// - Use react-pdf (https://react-pdf.org/) to generate the output
+// - The resume should include the full work and/or education sections. Anything else is optional
+// - Ensure the PDF contains a header and/or footer that repeats on every page
+// - Include the person's profile picture somewhere in the PDF
+
     //function 
     //onChange
     //onSubmit
@@ -25,22 +33,23 @@ export default function Form() {
     const handleFormSubmit = async(e) => {
         e.preventDefault();
         
+        //****CHECK IF NAME FIRST ERROR HANDLING */
+        console.log('sending POST')
         const res = await fetch('/api/profileData', {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                name
-            })
         });
 
+        console.log("POST sent")
         if(!res.ok) {
             setError(true);
             console.log('fetch error in handleFormSubmit')
         }
 
         const data = await res.json();
+        console.log('data', data)
     }
 
     return(
