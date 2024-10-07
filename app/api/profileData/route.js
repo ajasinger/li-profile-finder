@@ -25,7 +25,16 @@ export async function GET(request) {
         const userData = await response.json();
         console.log(userData, userData)
 
-        // const res = await fetch('https://www.linkedin.com/in/ceonyc');
+        return NextResponse.json(userData);
+
+    }catch(error) {
+        console.error('Error fetching user data', error);
+        return NextResponse.json({ error: 'Error fetching user data' }, { status: 500 });
+    }
+}
+
+
+ // const res = await fetch('https://www.linkedin.com/in/');
         // const html = await res.text();
 
         // console.log(html);
@@ -55,37 +64,3 @@ export async function GET(request) {
         // console.log('Profile Data:', profileData);
         
         // await browser.close();
-
-    }catch(error) {
-        console.error('Error fetching user data', error);
-        return NextResponse.json({ error: 'Error fetching user data' }, { status: 500 });
-    }
-
-    return NextResponse.json(userData);
-}
-
-
-// Fetch LinkedIn profile data
-// const profileResponse = await fetch('https://api.linkedin.com/v2/me', {
-//     headers: {
-//       Authorization: `Bearer ${access_token}`,
-//     },
-//   });
-//   const profileData = await profileResponse.json();
-//   console.log('profileData', profileData);
-
-//   // Fetch LinkedIn email data
-//   const emailResponse = await fetch('https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))', {
-//     headers: {
-//       Authorization: `Bearer ${access_token}`,
-//     },
-//   });
-//   const emailData = await emailResponse.json();
-//   console.log('emailData', emailData)
-// const emailAddress = emailData.elements[0]['handle~'].emailAddress;
-
-//   // Return the profile and email data
-//   return NextResponse.json({
-//     profile: profileData,
-//     email: emailAddress,
-//   });
