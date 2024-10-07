@@ -1,15 +1,15 @@
 'use client';
 import { useState } from 'react';
+import RenderPdf from "./RenderPdf";
 
 export default function Form() {
     //state 
     const [name, setName] = useState('');
     const [loading, setLoading] = useState(false);
+    const [pdfData, setPdfData] = useState(null);
     const [error, setError] = useState(false);
 
-
 // Create a React web app that takes a LinkedIn URL and spits out a personalized PDF resume
-
 // Project Requirements:
 // - Deliver a Github repository, ready for npm i && npm start
 // - Use any web scraper you'd like, (or even the LinkedIn API if you manage to get access)
@@ -33,23 +33,16 @@ export default function Form() {
     const handleFormSubmit = async(e) => {
         e.preventDefault();
         
-        //****CHECK IF NAME FIRST ERROR HANDLING */
-        console.log('sending POST')
-        const res = await fetch('/api/profileData', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        });
+        const res = await fetch('/api/profileData');
 
-        console.log("POST sent")
         if(!res.ok) {
             setError(true);
             console.log('fetch error in handleFormSubmit')
         }
 
         const data = await res.json();
-        console.log('data', data)
+        console.log('data', data);
+        setPdfData(data);
     }
 
     return(
@@ -79,7 +72,7 @@ export default function Form() {
                     Generate PDF
                 </button>
             </form>
-
+            < RenderPdf pdfData={pdfData} />
         </div>
     )
 }
